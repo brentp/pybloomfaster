@@ -13,6 +13,8 @@ Implementation
 ==============
 
 Simple cython wrapper to the code from `Bloom::Faster`_ perl module.
+It's called 'Elf' because 'ELF' is an early flowering mutant in Arabidopsis.
+So Bloom Fast => Early Flowering => Elf.
 
 Usage
 =====
@@ -26,5 +28,5 @@ Usage
     >>> "ASDF" in e
     True
 
-.. _`Bloom::Faster`: http://search.cpan.org/~palvaro/Bloom-Faster-1.6/lib/Bloom/Faster.pm 
+.. _`Bloom::Faster`: http://search.cpan.org/~palvaro/Bloom-Faster-1.6/lib/Bloom/Faster.pm
 
