@@ -23,7 +23,8 @@ Usage
     >>> from pybloomfaster import Elf
 
     >>> expected_size = 1000
-    >>> e = Elf(expected_size)
+    >>> error_rate = 1e-10
+    >>> e = Elf(expected_size, error_rate=error_rate)
     >>> e.add("ASDF")
     >>> "ASDF" in e
     True
