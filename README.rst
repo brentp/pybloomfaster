@@ -28,5 +28,13 @@ Usage
     >>> "ASDF" in e
     True
 
+    >>> e.save("some.elf")
+    >>> f = Elf.load("some.elf")
+
+    >>> "ASDF" in f
+    True
+    >>> "AA" in f
+    False
+
 .. _`Bloom::Faster`: http://search.cpan.org/~palvaro/Bloom-Faster-1.6/lib/Bloom/Faster.pm
 

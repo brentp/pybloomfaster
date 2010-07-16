@@ -42,7 +42,6 @@ cdef extern from "bloom.h":
         bloomstat stat
 
 
-
     # the hash_function must take a string and return a bignum
     ctypedef BIGNUM (*hash_t)(char *) except -1
 
@@ -59,11 +58,10 @@ cdef extern from "bloom.h":
     int get_suggestion(bloomstat *stats, BIGNUM n, double e)
 
 
-
 cdef class Elf:
     cdef bloom* _bloom
 
-    def __cinit__(self, BIGNUM n_elements, float error_rate=0.001):
+    def __init__(self, BIGNUM n_elements, float error_rate=0.001):
         self._bloom = <bloom *>stdlib.malloc(sizeof(bloom))
         cdef bloomstat *stats
         stats = &self._bloom.stat
@@ -80,3 +78,21 @@ cdef class Elf:
 
     def __del__(self):
         bloom_destroy(self._bloom)
+
+
+    def save(self, filename):
+        bloom_serialize(self._bloom, filename)
+
+    @classmethod
+    def load(cls, filename):
+        return _load(filename)
+
+
+cdef extern from "pnew.h":
+    cdef Elf NEW_ELF "PY_NEW" (object t)
+
+cdef Elf _load(char *filename):
+    cdef Elf instance = NEW_ELF(Elf)
+    instance._bloom = bloom_deserialize(filename)
+    return instance
+

@@ -1,5 +1,6 @@
 import unittest
 from pybloomfaster import Elf
+import os
 
 class TestInitialize(unittest.TestCase):
     def setUp(self):
@@ -14,9 +15,31 @@ class TestContains(unittest.TestCase):
         self.e = Elf(100)
         for i in range(100):
             self.e.add(str(i))
+
     def testContains(self):
         for i in range(100):
             self.assert_(str(i) in self.e)
 
+class TestSerialize(TestContains):
+    def setUp(self):
+        self.e = Elf(100)
+        for i in range(100):
+            self.e.add(str(i))
+        self.e.save("_t.elf")
+
+    def testSave(self):
+        self.assert_(os.path.exists("_t.elf"))
+
+    def testLoad(self):
+        e = Elf.load("_t.elf")
+        self.assert_("1" in e)
+        self.assert_("10" in e)
+
+    def tearDown(self):
+        os.unlink("_t.elf")
+
+
+
 if __name__ == "__main__":
     unittest.main()
+
