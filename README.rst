@@ -1,13 +1,10 @@
-===============================
-pybloomfaster: fast bloomfilter
-===============================
+bloomfaster: fast bloomfilter
+=============================
 
 
 :Author: Brent Pedersen (brentp)
 :Email: bpederse@gmail.com
 :License: MIT
-
-.. contents ::
 
 Implementation
 ==============
@@ -20,7 +17,7 @@ Usage
 =====
 ::
   
-    >>> from pybloomfaster import Elf
+    >>> from bloomfaster import Elf
 
     >>> expected_size = 1000
     >>> error_rate = 1e-10
@@ -36,6 +33,13 @@ Usage
     True
     >>> "AA" in f
     False
+
+Tests
+=====
+::
+    
+    $ python setup.py test
+
 
 .. _`Bloom::Faster`: http://search.cpan.org/~palvaro/Bloom-Faster-1.6/lib/Bloom/Faster.pm
 

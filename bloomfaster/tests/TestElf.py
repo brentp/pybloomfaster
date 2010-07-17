@@ -1,5 +1,5 @@
 import unittest
-from pybloomfaster import Elf
+from bloomfaster import Elf
 import os
 
 class TestInitialize(unittest.TestCase):
