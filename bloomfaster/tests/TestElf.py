@@ -38,7 +38,16 @@ class TestSerialize(TestContains):
     def tearDown(self):
         os.unlink("_t.elf")
 
+class TestAddMany(unittest.TestCase):
 
+    def setUp(self):
+        self.e = Elf(100)
+
+    def testAdd(self):
+        self.e.addmany((str(i) for i in range(100)))
+
+        for i in range(100):
+            self.assert_(str(i) in self.e)
 
 if __name__ == "__main__":
     unittest.main()

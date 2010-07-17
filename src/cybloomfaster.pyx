@@ -33,7 +33,6 @@ ctypedef unsigned long long BIGNUM
 
 cdef extern from "bloom.h":
 
-    #struct bloomstat:
     ctypedef struct bloomstat "struct bloomstat":
         int ideal_hashes
         int elements
@@ -59,6 +58,23 @@ cdef extern from "bloom.h":
 
 
 cdef class Elf:
+    """
+    >>> from bloomfaster import Elf
+    >>> e = Elf(1000000, 0.0001)
+    >>> e.add("CCC")
+    >>> e.add("GGG")
+    >>> e.add("FFF")
+    >>> "AAA" in e
+    False
+
+    >>> "GGG" in e
+    True
+
+    >>> e.addmany(["ASDF", "RRR"])
+    >>> "RRR" in e
+    True
+
+    """
     cdef bloom* _bloom
 
     def __init__(self, BIGNUM n_elements, float error_rate=0.001):
@@ -71,7 +87,18 @@ cdef class Elf:
                    self._bloom.stat.ideal_hashes, NULL, 1)
 
     def add(self, astr):
+        """
+        add a single item to the bloom filter
+        """
         bloom_add(self._bloom, astr)
+
+    def addmany(self, iterable):
+        """
+        add many items to the bloom filter without incurring a function call
+        for each item
+        """
+        for astr in iterable:
+            bloom_add(self._bloom, astr)
 
     def __contains__(self, astr):
         return bool(bloom_test(self._bloom, astr, 1))
@@ -81,10 +108,16 @@ cdef class Elf:
 
 
     def save(self, filename):
+        """
+        save the bloom filter to a file
+        """
         bloom_serialize(self._bloom, filename)
 
     @classmethod
     def load(cls, filename):
+        """
+        load a previously saved bloomfilter
+        """
         return _load(filename)
 
 

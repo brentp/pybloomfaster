@@ -10,13 +10,12 @@ if not os.path.exists('src/cybloomfaster.c'):
     sys.exit()
 
 setup(
-    #cmdclass = {'build_ext': build_ext},
     ext_modules = [Extension("cybloomfaster", ["src/cybloomfaster.c", "src/bloom.c", "src/suggestions.c"],
                             include_dirs=["src/"], extra_objects=['src/bloom.h'],
                              depends=["src/bloom.h", "src/jenkins.h"])
                   ],
     name = 'bloomfaster',
-    version = '0.1',
+    version = '0.1.1',
     author = 'brentp',
     author_email = 'bpederse@gmail.com',
     description = 'Cython wrapper for BloomFaster',
