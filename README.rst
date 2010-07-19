@@ -20,11 +20,16 @@ Usage
     >>> from bloomfaster import Elf
 
     >>> expected_size = 1000
-    >>> error_rate = 1e-10
-    >>> e = Elf(expected_size, error_rate=error_rate)
+    >>> e = Elf(expected_size, error_rate=1e-10)
     >>> e.add("ASDF")
     >>> "ASDF" in e
     True
+
+    >>> e.update(("A", "B", "C", "D", "E", "F"))
+    >>> "B" in e
+    True
+
+serialization::
 
     >>> e.save("some.elf")
     >>> f = Elf.load("some.elf")
@@ -34,12 +39,16 @@ Usage
     >>> "AA" in f
     False
 
+
 Tests
 =====
 ::
     
     $ python setup.py test
 
+or with nose::
+
+    $ nosetests --with-doctest --doctest-extension="pyx" --doctest-extension="rst"
 
 .. _`Bloom::Faster`: http://search.cpan.org/~palvaro/Bloom-Faster-1.6/lib/Bloom/Faster.pm
 

@@ -49,6 +49,12 @@ class TestAddMany(unittest.TestCase):
         for i in range(100):
             self.assert_(str(i) in self.e)
 
+    def testUpdate(self):
+        self.e.update((str(i) for i in range(100)))
+
+        for i in range(100):
+            self.assert_(str(i) in self.e)
+
 if __name__ == "__main__":
     unittest.main()
 
