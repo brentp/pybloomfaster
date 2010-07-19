@@ -1,33 +1,3 @@
-"""
-struct bloomstat
-{
-    BIGNUM elements; /* size of array */
-    int ideal_hashes; /* num hash functions */
-    BIGNUM capacity; /* number of elements */
-    float e; /* max error rate */
-} ;
-
-typedef struct
-{
-    char *vector;
-    hash_t hash;
-    BIGNUM inserts;
-    struct bloomstat stat;
-    randoms random_nums;
-} bloom;
-
-
-/* public interface */
-int bloom_init(bloom *bloom,BIGNUM size,BIGNUM capacity, float error_rate,
-           int hashes,hash_t hash,int flags);
-int bloom_check(bloom *bloom,char *str);
-int bloom_add(bloom *bloom,char *str);
-int bloom_test(bloom *bloom,char *str,int MODE);
-void bloom_destroy(bloom *bloom);
-int bloom_serialize(bloom *bloom, char *fname);
-bloom * bloom_deserialize(char *fname);
-
-"""
 cimport stdlib
 ctypedef unsigned long long BIGNUM
 
@@ -99,6 +69,8 @@ cdef class Elf:
         """
         for astr in iterable:
             bloom_add(self._bloom, astr)
+
+    update = addmany
 
     def __contains__(self, astr):
         return bool(bloom_test(self._bloom, astr, 1))
