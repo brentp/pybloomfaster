@@ -1,4 +1,4 @@
-Filter to Uniuqe FASTQ
+Filter to Unique FASTQ
 ======================
 
 It's common to filter repeated reads from a fastq or fasta file. With
