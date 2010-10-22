@@ -1,6 +1,8 @@
 Filter to Unique FASTQ
 ======================
 
+See http://hackmap.blogspot.com/2010/10/bloom-filter-ing-repeated-reads.html
+
 It's common to filter repeated reads from a fastq or fasta file. With
 recent high-throughput sequencing output reaching ... hi throughput,
 it's no longer feasible to hold all reads in an in-memory datastructure
