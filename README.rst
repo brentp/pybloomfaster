@@ -9,9 +9,11 @@ bloomfaster: fast bloomfilter
 Implementation
 ==============
 
-Simple cython wrapper to the code from `Bloom::Faster`_ perl module.
+Simple cython wrapper to the C-code from `Bloom::Faster`_ perl module.
 It's called 'Elf' because 'ELF' is an early flowering mutant in Arabidopsis.
 So Bloom Fast => Early Flowering => Elf.
+
+It is tune-able for the number of false positives.
 
 Usage
 =====
