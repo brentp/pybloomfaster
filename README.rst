@@ -27,7 +27,7 @@ Usage
     >>> "ASDF" in e
     True
 
-    >>> e.update(("A", "B", "C", "D", "E", "F"))
+    >>> e.addmany(("A", "B", "C", "D", "E", "F"))
     >>> "B" in e
     True
 

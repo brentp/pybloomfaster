@@ -1,4 +1,4 @@
-cimport stdlib
+from libc cimport stdlib
 ctypedef unsigned long long BIGNUM
 
 cdef extern from "bloom.h":
