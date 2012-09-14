@@ -15,7 +15,7 @@ cdef extern from "bloom.h":
     ctypedef BIGNUM (*hash_t)(char *) except -1
 
     int bloom_init(bloom * bloom, BIGNUM size, BIGNUM capacity, float error_rate,
-                int hashes, hash_t hash, int_flags)
+                int hashes, hash_t hash, int flags)
 
     int bloom_check(bloom * bloom, char *str)
     int bloom_add(bloom * bloom, char *str)
