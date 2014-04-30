@@ -8,12 +8,12 @@ import collections
 import sys
 __doc__ %= sys.argv[0]
 if len(sys.argv) > 1:
-    print sys.argv
-    print __doc__
+    print(sys.argv)
+    print(__doc__)
     sys.exit()
 
 records = sum(1 for _ in sys.stdin) / 4
-print >>sys.stderr, records, "records in file"
+print(records, "records in file", file=sys.stderr)
 
 # say 1 out of 1000 is false positive.
 bloom = Elf(records, error_rate=1e-3)
@@ -35,8 +35,8 @@ while header:
 # for actual duplicated, just choose the first, but can also sort by quality.
 sys.stdin.seek(0)
 checks = frozenset(checks)
-print >>sys.stderr, "checking %s potential duplicates in a python set" \
-                                            % len(checks)
+print("checking %s potential duplicates in a python set" \
+                                            % len(checks), file=sys.stderr)
 putative_false_positives = collections.defaultdict(int)
 while True:
     header = readline().rstrip()
@@ -46,15 +46,15 @@ while True:
     qual = readline().rstrip()
     # it appeared only once, so just print it.
     if not seq in checks:
-        print "\n".join((header, seq, plus, qual))
+        print("\n".join((header, seq, plus, qual)))
         continue
     # it appeared in the bloom-filter > 1x, so track and make sure not
     # to print any others with same sequence.
     putative_false_positives[seq] += 1
     if putative_false_positives[seq] > 1:
         continue
-    print "\n".join((header, seq, plus, qual))
+    print("\n".join((header, seq, plus, qual)))
 
-false_positives = sum(1 for count in putative_false_positives.values() \
+false_positives = sum(1 for count in list(putative_false_positives.values()) \
                                                         if count == 1)
-print >>sys.stderr,  false_positives, "false-positive duplicates in the bloom filter"
+print(false_positives, "false-positive duplicates in the bloom filter", file=sys.stderr)

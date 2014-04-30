@@ -100,4 +100,3 @@ cdef Elf _load(char *filename):
     cdef Elf instance = NEW_ELF(Elf)
     instance._bloom = bloom_deserialize(filename)
     return instance
-
