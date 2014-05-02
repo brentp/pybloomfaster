@@ -1,3 +1,4 @@
+# cython: c_string_type=str, c_string_encoding=ascii
 from libc cimport stdlib
 ctypedef unsigned long long BIGNUM
 
