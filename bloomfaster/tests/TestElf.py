@@ -8,7 +8,7 @@ class TestInitialize(unittest.TestCase):
 
     def test_init(self):
         e = Elf(200)
-        self.assert_(isinstance(e, Elf))
+        self.assertTrue(isinstance(e, Elf))
 
 class TestContains(unittest.TestCase):
     def setUp(self):
@@ -18,7 +18,7 @@ class TestContains(unittest.TestCase):
 
     def testContains(self):
         for i in range(100):
-            self.assert_(str(i) in self.e)
+            self.assertTrue(str(i) in self.e)
 
 class TestSerialize(TestContains):
     def setUp(self):
@@ -28,12 +28,12 @@ class TestSerialize(TestContains):
         self.e.save("_t.elf")
 
     def testSave(self):
-        self.assert_(os.path.exists("_t.elf"))
+        self.assertTrue(os.path.exists("_t.elf"))
 
     def testLoad(self):
         e = Elf.load("_t.elf")
-        self.assert_("1" in e)
-        self.assert_("10" in e)
+        self.assertTrue("1" in e)
+        self.assertTrue("10" in e)
 
     def tearDown(self):
         os.unlink("_t.elf")
@@ -47,13 +47,13 @@ class TestAddMany(unittest.TestCase):
         self.e.addmany((str(i) for i in range(100)))
 
         for i in range(100):
-            self.assert_(str(i) in self.e)
+            self.assertTrue(str(i) in self.e)
 
     def testUpdate(self):
         self.e.update((str(i) for i in range(100)))
 
         for i in range(100):
-            self.assert_(str(i) in self.e)
+            self.assertTrue(str(i) in self.e)
 
 if __name__ == "__main__":
     unittest.main()

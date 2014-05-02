@@ -14,27 +14,27 @@ if not all(map(exists, bloom_sources)):
     sys.exit(1)
 
 bloom_module = Extension('cybloomfaster', sources=bloom_sources,
-                         include_dirs=['src/'], 
+                         include_dirs=['src/'],
                          depends=['src/bloom.h', 'src/jenkins.h'])
 setup(
     ext_modules=[bloom_module],
     name='bloomfaster',
-    version='0.1.1',
+    version='0.2.1',
     author='brentp',
     author_email='bpederse@gmail.com',
     description='Cython wrapper for BloomFaster',
-    tests_require=['nose'],
-    test_suite='nose.collector',
+    #tests_require=['nose'],
+    #test_suite='nose.collector',
 
     long_description=open('README.rst').read(),
-    url='http://',
-    download_url='http://',
     classifiers=['Development Status :: 3 - Alpha',
                  'Intended Audience :: Developers',
                  'License :: OSI Approved :: BSD License',
                  'Operating System :: OS Independent',
                  'Programming Language :: Python',
                  'Programming Language :: C',
+                 'Programming Language :: Python :: 2',
+                 'Programming Language :: Python :: 3'
                  'Topic :: Database :: Database Engines/Servers',
                  ],
     package_dir={'bloomfaster': "bloomfaster"},
