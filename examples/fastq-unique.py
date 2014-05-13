@@ -1,26 +1,30 @@
 """
-Reads a FastQ file from stdin and writes a file with unique records to sdout
+Reads a FastQ file and writes a file with unique records to sdout
 usage:
-    %s < in.fastq > out.unique.fastq
+    %s  in.fastq > out.unique.fastq
 """
 from __future__ import print_function
 
 import sys
+import gzip
 from bloomfaster import Elf
 import collections
 __doc__ %= sys.argv[0]
-if len(sys.argv) > 1:
+
+if len(sys.argv) != 2:
     print(sys.argv)
     print(__doc__)
     sys.exit()
 
-records = sum(1 for _ in sys.stdin) / 4
+xopen = lambda f: gzip.open(f) if f.endswith(".gz") else open(f) 
+
+records = sum(1 for _ in xopen(sys.argv[1])) / 4
 print(records, "records in file", file=sys.stderr)
 
 # say 1 out of 1000 is false positive.
 bloom = Elf(records, error_rate=1e-3)
-sys.stdin.seek(0)
-readline = sys.stdin.readline
+fh = xopen(sys.argv[1])
+readline = fh.readline
 
 checks = []
 header = readline().rstrip()
@@ -35,7 +39,7 @@ while header:
 # now checks contains anything that could be a duplicate according to
 # the bloomfilter. for some, they were false positives.
 # for actual duplicated, just choose the first, but can also sort by quality.
-sys.stdin.seek(0)
+fh.seek(0)
 checks = frozenset(checks)
 print("checking %s potential duplicates in a python set" \
                                             % len(checks), file=sys.stderr)
