@@ -3,9 +3,11 @@ Reads a FastQ file from stdin and writes a file with unique records to sdout
 usage:
     %s < in.fastq > out.unique.fastq
 """
+from __future__ import print_function
+
+import sys
 from bloomfaster import Elf
 import collections
-import sys
 __doc__ %= sys.argv[0]
 if len(sys.argv) > 1:
     print(sys.argv)
